@@ -1,204 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
   <style>
-    /* CSS for the main layout */
     body {
       background-color: black;
       color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      overflow: hidden;
-    }
-
-    /* CSS for the draggable text */
-    #draggable {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 48px;
-      font-weight: bold;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      user-select: none;
-      cursor: grab;
-    }
-
-    /* CSS for the lightbulb menu */
-    #lightbulb {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      width: 50px;
-      height: 50px;
-      background-color: yellow;
-      border-radius: 50%;
+      font-size: 36px;
+      text-align: center;
       cursor: pointer;
-      box-shadow: 0 0 10px 5px yellow;
-      animation: lightbulbAnimation 1s infinite;
-    }
-
-    @keyframes lightbulbAnimation {
-      0% {
-        box-shadow: 0 0 10px 5px yellow;
-      }
-      50% {
-        box-shadow: 0 0 20px 10px yellow;
-      }
-      100% {
-        box-shadow: 0 0 10px 5px yellow;
-      }
-    }
-
-    /* CSS for the menu animation */
-    #menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: black;
-      transform: translateY(-100%);
-      transition: transform 0.3s ease;
-    }
-
-    #menu.open {
-      transform: translateY(0%);
-    }
-
-    #menu ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 40px;
-    }
-
-    #menu ul li {
-      margin-bottom: 20px;
-    }
-
-    /* CSS for the working pages */
-    .working-page {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
       height: 100vh;
+      user-select: none;
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+    }
+    
+    #click-me {
+      font-size: 24px;
+      user-select: none;
+    }
+    
+    #click-counter {
+      font-size: 16px;
+      margin-top: 10px;
+      user-select: none;
+      color: white;
+      display: none;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse-animation {
+      animation: pulse 0.5s;
     }
   </style>
-  <title>Hey, I'm Sav</title>
   <script>
-    // JavaScript for dragging the text
-    let draggable = document.getElementById("draggable");
-    let isDragging = false;
-    let offsetX = 0;
-    let offsetY = 0;
-    let prevX = 0;
-    let prevY = 0;
-    let vx = 0;
-    let vy = 0;
-    let rotation = 0;
-
-    draggable.addEventListener("mousedown", startDrag);
-    draggable.addEventListener("mouseup", endDrag);
-
-    function startDrag(e) {
-      isDragging = true;
-      offsetX = e.clientX - draggable.getBoundingClientRect().left;
-      offsetY = e.clientY - draggable.getBoundingClientRect().top;
-      prevX = e.clientX;
-      prevY = e.clientY;
-      document.addEventListener("mousemove", drag);
-      document.addEventListener("mouseup", endDrag);
-    }
-
-    function endDrag() {
-      isDragging = false;
-      document.removeEventListener("mousemove", drag);
-      document.removeEventListener("mouseup", endDrag);
-    }
-
-    function drag(e) {
-      if (isDragging) {
-        const currentX = e.clientX - offsetX;
-        const currentY = e.clientY - offsetY;
-        const dx = currentX - prevX;
-        const dy = currentY - prevY;
-
-        draggable.style.transform = `translate(${currentX}px, ${currentY}px) rotate(${rotation}deg)`;
-        prevX = currentX;
-        prevY = currentY;
-
-        // Apply jelly physics
-        vx += dx * 0.05;
-        vy += dy * 0.05;
-
-        // Apply gravity
-        vy += 1;
-
-        requestAnimationFrame(animate);
+    var clickCount = 0;
+    
+    function changeColors() {
+      var backgroundColors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "teal", "magenta", "cyan", "lime", "gold", "indigo", "coral", "maroon", "turquoise", "navy", "violet", "olive", "gray"];
+      var textColors = ["white", "yellow", "cyan", "lime", "orange", "pink", "purple", "teal", "magenta", "silver", "gold", "red", "blue", "green", "indigo", "coral", "maroon"];
+      var fonts = ["Arial", "Verdana", "Helvetica", "Tahoma", "Georgia", "Times New Roman", "Courier New", "Impact", "Lucida Console", "Trebuchet MS", "Palatino Linotype", "Century Gothic", "Book Antiqua", "Garamond", "Comic Sans MS", "Arial Black", "Franklin Gothic Medium", "Calibri", "Segoe UI", "Montserrat"];
+      
+      var randomBackgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+      var randomTextColor = textColors[Math.floor(Math.random() * textColors.length)];
+      var randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+      
+      while (randomTextColor === randomBackgroundColor) {
+        randomTextColor = textColors[Math.floor(Math.random() * textColors.length)];
       }
+      
+      document.body.style.backgroundColor = randomBackgroundColor;
+      document.body.style.color = randomTextColor;
+      document.getElementById("click-me").style.fontFamily = randomFont;
+      document.getElementById("hey").style.fontFamily = randomFont;
     }
-
-    function animate() {
-      draggable.style.transform = `translate(${vx}px, ${vy}px) rotate(${rotation}deg)`;
-      vx *= 0.95;
-      vy *= 0.95;
-
-      // Apply bouncing off the edges
-      const bounds = draggable.getBoundingClientRect();
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-      const hitLeft = bounds.left <= 0;
-      const hitRight = bounds.right >= screenWidth;
-      const hitTop = bounds.top <= 0;
-      const hitBottom = bounds.bottom >= screenHeight;
-
-      if (hitLeft || hitRight) {
-        vx *= -1;
+    
+    function incrementClickCount() {
+      clickCount++;
+      document.getElementById("click-counter").textContent = "Clicks: " + clickCount;
+      if (clickCount === 1) {
+        document.getElementById("click-counter").style.display = "block";
       }
-
-      if (hitTop || hitBottom) {
-        vy *= -0.9;
-        rotation += 10;
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    // JavaScript for the lightbulb menu
-    let lightbulb = document.getElementById("lightbulb");
-    let menu = document.getElementById("menu");
-
-    lightbulb.addEventListener("click", toggleMenu);
-
-    function toggleMenu() {
-      menu.classList.toggle("open");
+      var elements = document.querySelectorAll("#hey > *");
+      elements.forEach(function(element) {
+        element.classList.remove("pulse-animation");
+        void element.offsetWidth; // Trigger reflow to restart the animation
+        element.classList.add("pulse-animation");
+      });
     }
   </script>
 </head>
-<body>
-  <div id="draggable">
-    <p>Hey, I'm Sav</p>
-  </div>
-
-  <div id="lightbulb"></div>
-
-  <div id="menu">
-    <ul>
-      <li><a href="#project">Project</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-
-  <div id="home" class="working-page"></div>
-
-  <div id="project" class="working-page">
-    <p>Working on it</p>
-  </div>
-
-  <div id="contact" class="working-page">
-    <p>Working on it</p>
+<body onclick="changeColors(); incrementClickCount()">
+  <div id="hey">
+    <h1 class="pulse-animation">Hey, I'm Sav</h1>
+    <p id="click-me" class="pulse-animation">(Click Me)</p>
+    <p id="click-counter"></p>
   </div>
 </body>
 </html>
