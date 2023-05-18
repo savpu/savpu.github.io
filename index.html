@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* CSS for the animated background */
+    body {
+      background: linear-gradient(45deg, #ff00ff, #00ff00, #0000ff);
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* CSS for the "Under Construction" text */
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: "Courier New", monospace;
+      font-size: 36px;
+      color: #000000;
+      text-align: center;
+    }
+  </style>
+  <title>Under Construction</title>
+</head>
+<body>
+  <div class="container">
+    <p>This site is under construction</p>
+  </div>
+</body>
+</html>
+
