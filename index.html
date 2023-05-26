@@ -1,106 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sav - Clicky</title>
-<<<<<<< HEAD
-  <meta charset="UTF-8"> <!-- Added meta tag for proper encoding -->
-=======
->>>>>>> 0f5af8a0aa91f84cef93254400d87aeb0ac0a2b2
+  <title>He be shy</title>
   <style>
     body {
-      background-color: black;
-      color: white;
-      font-size: 36px;
-      text-align: center;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      user-select: none;
-      -webkit-user-select: none; /* Safari */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* IE10+/Edge */
-    }
-    
-    #click-me {
-      font-size: 24px;
-      user-select: none;
-    }
-    
-    #click-counter {
-      font-size: 16px;
-      margin-top: 10px;
-      user-select: none;
-      color: white;
-      display: none;
-    }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-    
-    .pulse-animation {
-      animation: pulse 0.5s;
-    }
-    
-    #footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      font-size: 12px;
+      background-color: #000;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      color: white;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 5px 10px;
+      color: #fff;
+    }
+    
+    #text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      transition: all 0.3s ease;
+    }
+    
+    #copyright {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      font-size: 12px;
     }
   </style>
+</head>
+<body>
+  <div id="text">Hi, I'm Sav</div>
+  
+  <div id="copyright">
+    &copy; Sav B. All Rights Reserved. 2023.
+  </div>
+
   <script>
-    var clickCount = 0;
-    
-    function changeColors() {
-      var backgroundColors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "teal", "magenta", "cyan", "lime", "gold", "indigo", "coral", "maroon", "turquoise", "navy", "violet", "olive", "gray"];
-      var textColors = ["white", "yellow", "cyan", "lime", "orange", "pink", "purple", "teal", "magenta", "silver", "gold", "red", "blue", "green", "indigo", "coral", "maroon"];
-      var fonts = ["Arial", "Verdana", "Helvetica", "Tahoma", "Georgia", "Times New Roman", "Courier New", "Impact", "Lucida Console", "Trebuchet MS", "Palatino Linotype", "Century Gothic", "Book Antiqua", "Garamond", "Comic Sans MS", "Arial Black", "Franklin Gothic Medium", "Calibri", "Segoe UI", "Montserrat"];
+    var textElement = document.getElementById('text');
+    var originalColor = window.getComputedStyle(textElement).color;
+
+    textElement.addEventListener('mouseover', function() {
+      var randomX = Math.floor(Math.random() * window.innerWidth);
+      var randomY = Math.floor(Math.random() * window.innerHeight);
       
-      var randomBackgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
-      var randomTextColor = textColors[Math.floor(Math.random() * textColors.length)];
-      var randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+      textElement.style.left = randomX + 'px';
+      textElement.style.top = randomY + 'px';
       
-      while (randomTextColor === randomBackgroundColor) {
-        randomTextColor = textColors[Math.floor(Math.random() * textColors.length)];
+      var randomColor = getRandomColor();
+      textElement.style.color = randomColor;
+    });
+
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      while (color === '#000000') {
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
       }
-      
-      document.body.style.backgroundColor = randomBackgroundColor;
-      document.body.style.color = randomTextColor;
-      document.getElementById("click-me").style.fontFamily = randomFont;
-      document.getElementById("hey").style.fontFamily = randomFont;
-    }
-    
-    function incrementClickCount() {
-      clickCount++;
-      document.getElementById("click-counter").textContent = "Clicks: " + clickCount;
-      if (clickCount === 1) {
-        document.getElementById("click-counter").style.display = "block";
-      }
-      var elements = document.querySelectorAll("#hey > *");
-      elements.forEach(function(element) {
-        element.classList.remove("pulse-animation");
-        void element.offsetWidth; // Trigger reflow to restart the animation
-        element.classList.add("pulse-animation");
-      });
+      return color;
     }
   </script>
-</head>
-<body onclick="changeColors(); incrementClickCount()">
-  <div id="hey">
-    <h1 class="pulse-animation">Hey, I'm Sav</h1>
-    <p id="click-me" class="pulse-animation">(Click Me)</p>
-    <p id="click-counter"></p>
-  </div>
-  <div id="footer">© 2023 Sav, Inc. All rights reserved.</div>
 </body>
 </html>
