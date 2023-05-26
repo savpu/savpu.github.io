@@ -1,95 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Website</title>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      font-size: 36px;
-      text-align: center;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      user-select: none;
-      -webkit-user-select: none; /* Safari */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* IE10+/Edge */
-    }
-    
-    #click-me {
-      font-size: 24px;
-      user-select: none;
-    }
-    
-    #click-counter {
-      font-size: 16px;
-      margin-top: 10px;
-      user-select: none;
-      color: white;
-      display: none;
-    }
-    
-    @keyframes wobble {
-      0% { transform: translateX(0); }
-      15% { transform: translateX(-10px) rotate(-3deg); }
-      30% { transform: translateX(10px) rotate(3deg); }
-      45% { transform: translateX(-10px) rotate(-3deg); }
-      60% { transform: translateX(10px) rotate(3deg); }
-      75% { transform: translateX(-10px) rotate(-3deg); }
-      90% { transform: translateX(10px) rotate(3deg); }
-      100% { transform: translateX(0); }
-    }
-    
-    .wobble-animation {
-      animation: wobble 0.5s;
-    }
-  </style>
-  <script>
-    var clickCount = 0;
-    
-    function changeColors() {
-      var backgroundColors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "teal", "magenta", "cyan", "lime", "gold", "indigo", "coral", "maroon", "turquoise", "navy", "violet", "olive", "gray"];
-      var textColors = ["white", "yellow", "cyan", "lime", "orange", "pink", "purple", "teal", "magenta", "silver", "gold", "red", "blue", "green", "indigo", "coral", "maroon"];
-      var fonts = ["Arial", "Verdana", "Helvetica", "Tahoma", "Georgia", "Times New Roman", "Courier New", "Impact", "Lucida Console", "Trebuchet MS", "Palatino Linotype", "Century Gothic", "Book Antiqua", "Garamond", "Comic Sans MS", "Arial Black", "Franklin Gothic Medium", "Calibri", "Segoe UI", "Montserrat"];
-      
-      var randomBackgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
-      var randomTextColor = textColors[Math.floor(Math.random() * textColors.length)];
-      var randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-      
-      while (randomTextColor === randomBackgroundColor) {
-        randomTextColor = textColors[Math.floor(Math.random() * textColors.length)];
-      }
-      
-      document.body.style.backgroundColor = randomBackgroundColor;
-      document.body.style.color = randomTextColor;
-      document.getElementById("click-me").style.fontFamily = randomFont;
-      document.getElementById("hey").style.fontFamily = randomFont;
-    }
-    
-    function incrementClickCount() {
-      clickCount++;
-      document.getElementById("click-counter").textContent = "Clicks: " + clickCount;
-      if (clickCount === 1) {
-        document.getElementById("click-counter").style.display = "block";
-      }
-      var elements = document.querySelectorAll(".wobble-animation");
-      elements.forEach(function(element) {
-        element.classList.remove("wobble-animation");
-        void element.offsetWidth; // Trigger reflow to restart the animation
-        element.classList.add("wobble-animation");
-      });
-    }
-  </script>
+    <title>HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        .hello {
+            position: absolute;
+            color: black;
+            cursor: pointer;
+        }
+        
+        #helloText {
+            text-align: center;
+            margin-top: 200px;
+            font-size: 48px;
+        }
+    </style>
+    <script>
+        function createHelloText() {
+            var helloText = document.createElement("div");
+            helloText.className = "hello";
+            helloText.innerHTML = "Hello";
+            
+            // Set random position within visible screen bounds
+            var screenWidth = window.innerWidth;
+            var screenHeight = window.innerHeight;
+            var randomX = Math.floor(Math.random() * (screenWidth - 100));
+            var randomY = Math.floor(Math.random() * (screenHeight - 100));
+            helloText.style.left = randomX + "px";
+            helloText.style.top = randomY + "px";
+            
+            // Set random font size
+            var randomFontSize = Math.floor(Math.random() * 48) + 12; // Range: 12px to 60px
+            helloText.style.fontSize = randomFontSize + "px";
+            
+            document.body.appendChild(helloText);
+        }
+        
+        window.onload = function() {
+            var helloTextElement = document.getElementById("helloText");
+            helloTextElement.onclick = function() {
+                setInterval(createHelloText, 200);
+            };
+        };
+    </script>
 </head>
-<body onclick="changeColors(); incrementClickCount()">
-  <div id="hey">
-    <h1 class="wobble-animation">Hey, I'm Sav</h1>
-    <p id="click-me" class="wobble-animation">(Click Me)</p>
-    <p id="click-counter"></p>
-  </div>
+<body>
+    <div id="helloText">Hello</div>
 </body>
 </html>
